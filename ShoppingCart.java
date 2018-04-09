@@ -1,6 +1,4 @@
 
-import Wallet;
-
 public class ShoppingCart {
     private static Wallet wallet = new Wallet();
 
