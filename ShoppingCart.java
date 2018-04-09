@@ -1,13 +1,7 @@
+import java.util.Scanner;
 
 public class ShoppingCart {
     private static Wallet wallet = new Wallet();
-
-    public static void main(String[] args) {
-        printBalance();
-        printProductList();
-        printRequest();
-        printBalanceAfterPurchase();
-    }
 
     private static void printBalance() {
         System.out.println("Your balance: + " + wallet.getBalance() + " credits");
