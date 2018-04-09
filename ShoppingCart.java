@@ -1,22 +1,30 @@
 
+import Wallet;
+
 public class ShoppingCart {
+    private static Wallet wallet = new Wallet();
+
     public static void main(String[] args) {
-
+        printBalance();
+        printProductList();
+        printRequest();
+        printBalanceAfterPurchase();
     }
 
-    private void printBalance() {
-
+    private static void printBalance() {
+        System.out.println("Your balance: + " + wallet.getBalance() + " credits");
     }
 
-    private void printProductList() {
-
+    private static void printProductList() {
+        System.out.println(Store.asString());
     }
 
-    private void printRequest() {
-
+    private static void printRequest() {
+        System.out.println("What you want to buy?: <insert a product name, e.g. pen>");
     }
 
-    private void printBalanceAfterPurchase() {
+    private static void printBalanceAfterPurchase() {
+        System.out.println("Your balance: + " + wallet.getBalance() + " credits");
 
     }
 
