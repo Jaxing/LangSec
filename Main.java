@@ -36,13 +36,12 @@ public class Main {
             userInput = scanner.next().toLowerCase();
         }
 
-        if (userInput != null && Store.products.containsKey(userInput)) {
-            try {
+        if (userInput!=null && Store.products.containsKey(userInput)) {
+            try {;
                 pocket.addProduct(userInput);
-                int balance = wallet.getBalance();
                 Thread.sleep(10000);
-                wallet.setBalance(balance - Store.products.get(userInput));
-            } catch (Exception ioe) {
+                wallet.safeWithdraw(Store.products.get(userInput));
+            } catch(Exception ioe) {
                 System.out.println("Something went wrong");
                 System.out.println(ioe.getMessage());
                 System.exit(1);
