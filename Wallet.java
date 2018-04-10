@@ -10,7 +10,7 @@ public class Wallet {
     * The RandomAccessFile of the wallet file
     */  
    private RandomAccessFile file;
-   private final Lock lock = new ReentrantLock();;
+   private static final Lock lock = new ReentrantLock();
 
    /**
     * Creates a Wallet object
@@ -50,6 +50,7 @@ public class Wallet {
     public void safeWithdraw(int valueToWithdraw) throws Exception {
         lock.lock();
         int balance = getBalance();
+        Thread.sleep(10000);
         setBalance(balance - valueToWithdraw);
         lock.unlock();
     }
