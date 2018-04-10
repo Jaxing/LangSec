@@ -9,20 +9,20 @@ public class Main {
         Wallet wallet = null;
         try {
             pocket = new Pocket();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Could not create pocket, make sure that the pocket.txt file exists");
             System.exit(1);
         }
         try {
             wallet = new Wallet();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Could not create wallet, make sure that the wallet.txt file exists");
             System.exit(1);
         }
 
         try {
             System.out.printf("Your balance is: %d credits\n", wallet.getBalance());
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Something went wrong");
             System.out.println(ioe.getMessage());
             System.exit(1);
@@ -36,11 +36,13 @@ public class Main {
             userInput = scanner.next().toLowerCase();
         }
 
-        if (userInput!=null && Store.products.containsKey(userInput)) {
+        if (userInput != null && Store.products.containsKey(userInput)) {
             try {
                 pocket.addProduct(userInput);
-                wallet.setBalance(wallet.getBalance()-Store.products.get(userInput));
-            } catch(Exception ioe) {
+                int balance = wallet.getBalance();
+                Thread.sleep(10000);
+                wallet.setBalance(balance - Store.products.get(userInput));
+            } catch (Exception ioe) {
                 System.out.println("Something went wrong");
                 System.out.println(ioe.getMessage());
                 System.exit(1);
@@ -50,7 +52,7 @@ public class Main {
         }
         try {
             System.out.printf("Your balance is: %d credits\n", wallet.getBalance());
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("Something went wrong");
             System.out.println(ioe.getMessage());
             System.exit(1);
