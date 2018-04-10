@@ -6,22 +6,22 @@ import java.util.concurrent.locks.*;
 import org.omg.CORBA.portable.ValueOutputStream;
 
 public class Wallet {
-   /**
+    /**
     * The RandomAccessFile of the wallet file
-    */  
-   private RandomAccessFile file;
-   private static final Lock lock = new ReentrantLock();
+    */
+    private RandomAccessFile file;
+    private static final Lock lock = new ReentrantLock();
 
-   /**
+    /**
     * Creates a Wallet object
     *
     * A Wallet object interfaces with the wallet RandomAccessFile
     */
-    public Wallet () throws Exception {
+    public Wallet() throws Exception {
         this.file = new RandomAccessFile(new File("wallet.txt"), "rw");
     }
 
-   /**
+    /**
     * Gets the wallet balance. 
     *
     * @return                   The content of the wallet file as an integer
@@ -31,15 +31,15 @@ public class Wallet {
         return Integer.parseInt(this.file.readLine());
     }
 
-   /**
+    /**
     * Sets a new balance in the wallet
     *
     * @param  newBalance          new balance to write in the wallet
     */
     private void setBalance(int newBalance) throws Exception {
         this.file.setLength(0);
-        String str = new Integer(newBalance).toString()+'\n'; 
-        this.file.writeBytes(str); 
+        String str = new Integer(newBalance).toString() + '\n';
+        this.file.writeBytes(str);
     }
 
     /**
@@ -50,14 +50,15 @@ public class Wallet {
     public void safeWithdraw(int valueToWithdraw) throws Exception {
         lock.lock();
         int balance = getBalance();
-        Thread.sleep(10000);
+        Thread.sleep(3000);
         setBalance(balance - valueToWithdraw);
         lock.unlock();
     }
-   /**
+
+    /**
     * Closes the RandomAccessFile in this.file
     */
     public void close() throws Exception {
-	    this.file.close();
+        this.file.close();
     }
 }

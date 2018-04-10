@@ -1,7 +1,8 @@
 
 public class Main {
     public static void main(String[] args) {
-        new ShoppingCart().run();
-        new ShoppingCart().run();
+        System.out.print(Store.asString());
+        new Thread(new ShoppingCart()).start();
+        new Thread(new ShoppingCart()).start();
     }
 }

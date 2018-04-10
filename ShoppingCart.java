@@ -1,9 +1,12 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.locks.*;
 
+public class ShoppingCart implements Runnable {
 
-public class ShoppingCart implements Runnable{
+    private static final Lock lock = new ReentrantLock();
+
     public void run() {
         ShoppingCart shoppingCart = new ShoppingCart();
         Pocket pocket = null;
@@ -21,6 +24,7 @@ public class ShoppingCart implements Runnable{
             System.exit(1);
         }
 
+        lock.lock();
         try {
             System.out.printf("Your balance is: %d credits\n", wallet.getBalance());
         } catch (IOException ioe) {
@@ -28,7 +32,6 @@ public class ShoppingCart implements Runnable{
             System.out.println(ioe.getMessage());
             System.exit(1);
         }
-        System.out.print(Store.asString());
         System.out.print("What you want to buy?: <insert a product name, e.g. pen, or exit>");
         Scanner scanner = new Scanner(System.in);
 
@@ -36,12 +39,14 @@ public class ShoppingCart implements Runnable{
         if (scanner.hasNext()) {
             userInput = scanner.next().toLowerCase();
         }
+        lock.unlock();
 
-        if (userInput!=null && Store.products.containsKey(userInput)) {
-            try {;
+        if (userInput != null && Store.products.containsKey(userInput)) {
+            try {
+                ;
                 pocket.addProduct(userInput);
                 wallet.safeWithdraw(Store.products.get(userInput));
-            } catch(Exception ioe) {
+            } catch (Exception ioe) {
                 System.out.println("Something went wrong");
                 System.out.println(ioe.getMessage());
                 System.exit(1);
@@ -57,6 +62,7 @@ public class ShoppingCart implements Runnable{
             System.exit(1);
         }
     }
+
     private static void printBalance() {
         // System.out.println("Your balance: + " + wallet.getBalance() + " credits");
     }
