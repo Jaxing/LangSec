@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class ShoppingCart {
-    private static Wallet wallet = new Wallet();
+    // private static Wallet wallet = new Wallet();
 
     private static void printBalance() {
-        System.out.println("Your balance: + " + wallet.getBalance() + " credits");
+        // System.out.println("Your balance: + " + wallet.getBalance() + " credits");
     }
 
     private static void printProductList() {
@@ -16,7 +16,7 @@ public class ShoppingCart {
     }
 
     private static void printBalanceAfterPurchase() {
-        System.out.println("Your balance: + " + wallet.getBalance() + " credits");
+        // System.out.println("Your balance: + " + wallet.getBalance() + " credits");
 
     }
 
