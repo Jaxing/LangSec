@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.concurrent.locks.*;
+import java.nio.channels.*;
 
 import org.omg.CORBA.portable.ValueOutputStream;
 
@@ -10,7 +11,6 @@ public class Wallet {
     * The RandomAccessFile of the wallet file
     */
     private RandomAccessFile file;
-    private static final Lock lock = new ReentrantLock();
 
     /**
     * Creates a Wallet object
@@ -28,7 +28,8 @@ public class Wallet {
     */
     public int getBalance() throws IOException {
         this.file.seek(0);
-        return Integer.parseInt(this.file.readLine());
+        Integer balance = Integer.parseInt(this.file.readLine());
+        return balance;
     }
 
     /**
@@ -48,11 +49,11 @@ public class Wallet {
      * @param valueToWithdraw   amount by which the wallet changes
      */
     public void safeWithdraw(int valueToWithdraw) throws Exception {
-        lock.lock();
+        FileLock f = file.getChannel().lock(0, Long.MAX_VALUE, false);
         int balance = getBalance();
         Thread.sleep(3000);
         setBalance(balance - valueToWithdraw);
-        lock.unlock();
+        f.release();
     }
 
     /**

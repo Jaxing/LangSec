@@ -5,8 +5,6 @@ import java.util.concurrent.locks.*;
 
 public class ShoppingCart implements Runnable {
 
-    private static final Lock lock = new ReentrantLock();
-
     public void run() {
         ShoppingCart shoppingCart = new ShoppingCart();
         Pocket pocket = null;
@@ -24,7 +22,6 @@ public class ShoppingCart implements Runnable {
             System.exit(1);
         }
 
-        lock.lock();
         try {
             System.out.printf("Your balance is: %d credits\n", wallet.getBalance());
         } catch (IOException ioe) {
@@ -39,7 +36,6 @@ public class ShoppingCart implements Runnable {
         if (scanner.hasNext()) {
             userInput = scanner.next().toLowerCase();
         }
-        lock.unlock();
 
         if (userInput != null && Store.products.containsKey(userInput)) {
             try {
